@@ -10,6 +10,7 @@ const { exec } = require('child_process');
 var Command = {
   CONFIG: "https://gist.githubusercontent.com/fahimc/8ddd9c2741d436758be61423713510d8/raw/71092cde1a4fd9af8c7b89a18403047e61ba7a2a/dev-cli-config.json",
   GIST_LINK: "https://gist.github.com/fahimc/8ddd9c2741d436758be61423713510d8",
+  GITHUB_LINK: "https://github.com/fahimc/dev-cli",
   Logger: require('../logger.js'),
   argsLength: 3,
   boilerplateName: null,
@@ -22,20 +23,27 @@ var Command = {
       var arg = args[this.argsLength];
       this.boilerplateName = arg;
       this.getConfig();
+    }else{
+    	this.Logger.warn('please supply the boilerplate you wish to install. Check out the readme:\n'+ this.GITHUB_LINK);
     }
   },
   getConfig: function() {
+  	this.Logger.warn('getting boilerplate file','');
     request(Command.CONFIG, this.onRequest.bind(this));
   },
   onRequest: function(error, response, body) {
-    if (error) console.log('error:', error); // Print the error if one occurred
+    if (error) {
+    	console.error('error:', error); // Print the error if one occurred
+    	return;
+    }
+    this.Logger.ok('boilerplate file obtained');
     this.config = JSON.parse(body);
     this.getRepo();
   },
   getRepo: function() {
     var boilerplate = this.config.boilerplates[this.boilerplateName];
     if (boilerplate) {
-      this.Logger.ok('cloning repo');
+      this.Logger.warn('cloning repo','','');
       simpleGit.clone(boilerplate.repoLink, 'temp', this.onGitCloneComplete.bind(this));
 
     } else {
@@ -44,6 +52,7 @@ var Command = {
 
   },
   onGitCloneComplete: function() {
+    this.Logger.ok('clone complete');
     this.deleteFolderRecursive('temp/.git');
     ncp('temp', '.', this.copyComplete.bind(this));
   },
@@ -57,7 +66,7 @@ var Command = {
   install: function() {
     var boilerplate = this.config.boilerplates[this.boilerplateName];
     if (boilerplate.install) {
-      this.Logger.ok('installing...');
+      this.Logger.warn('running install command...','');
       var spawn = exec(boilerplate.install, { cwd: process.cwd() }, (err, stdout, stderr) => {
         if (err) {
           console.error(err);
@@ -66,7 +75,7 @@ var Command = {
         console.log(stdout);
       });
       spawn.on('close', (code) => {
-         this.Logger.ok('Done!');
+         this.Logger.ok('done!');
       });
     }
   },
