@@ -8,7 +8,7 @@ var ncp = require('ncp').ncp;
 const { exec } = require('child_process');
 
 var Command = {
-  CONFIG: "https://gist.githubusercontent.com/fahimc/8ddd9c2741d436758be61423713510d8/raw/71092cde1a4fd9af8c7b89a18403047e61ba7a2a/dev-cli-config.json",
+  CONFIG: "https://gist.githubusercontent.com/fahimc/8ddd9c2741d436758be61423713510d8/raw",
   GIST_LINK: "https://gist.github.com/fahimc/8ddd9c2741d436758be61423713510d8",
   GITHUB_LINK: "https://github.com/fahimc/dev-cli",
   Logger: require('../logger.js'),
@@ -22,6 +22,7 @@ var Command = {
     if (args.length - 1 == this.argsLength) {
       var arg = args[this.argsLength];
       this.boilerplateName = arg;
+      this.Logger.ok('starting to install ' + this.boilerplateName +  ' boilerplate');
       this.getConfig();
     }else{
     	this.Logger.warn('please supply the boilerplate you wish to install. Check out the readme:\n'+ this.GITHUB_LINK);
@@ -77,6 +78,8 @@ var Command = {
       spawn.on('close', (code) => {
          this.Logger.ok('done!');
       });
+    }else{
+    	this.Logger.ok('done!');
     }
   },
   deleteFolderRecursive: function(path) {
