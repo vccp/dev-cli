@@ -9,6 +9,7 @@ const { exec } = require('child_process');
 
 var Command = {
   CONFIG: "https://gist.githubusercontent.com/fahimc/8ddd9c2741d436758be61423713510d8/raw/71092cde1a4fd9af8c7b89a18403047e61ba7a2a/dev-cli-config.json",
+  GIST_LINK: "https://gist.github.com/fahimc/8ddd9c2741d436758be61423713510d8",
   Logger: require('../logger.js'),
   argsLength: 3,
   boilerplateName: null,
@@ -19,7 +20,6 @@ var Command = {
   getTask: function(args) {
     if (args.length - 1 == this.argsLength) {
       var arg = args[this.argsLength];
-      console.log('argument:', arg);
       this.boilerplateName = arg;
       this.getConfig();
     }
@@ -35,10 +35,11 @@ var Command = {
   getRepo: function() {
     var boilerplate = this.config.boilerplates[this.boilerplateName];
     if (boilerplate) {
+      this.Logger.ok('cloning repo');
       simpleGit.clone(boilerplate.repoLink, 'temp', this.onGitCloneComplete.bind(this));
 
     } else {
-      Logger.warn('cannot find this boilerplate');
+      this.Logger.warn('cannot find this boilerplate. Please check the following file to see the available boilerplates: \nhttps://gist.github.com/fahimc/8ddd9c2741d436758be61423713510d8');
     }
 
   },
@@ -56,13 +57,16 @@ var Command = {
   install: function() {
     var boilerplate = this.config.boilerplates[this.boilerplateName];
     if (boilerplate.install) {
-      Logger.ok('installing...');
-      exec(boilerplate.install, { cwd: process.cwd() }, (err, stdout, stderr) => {
+      this.Logger.ok('installing...');
+      var spawn = exec(boilerplate.install, { cwd: process.cwd() }, (err, stdout, stderr) => {
         if (err) {
           console.error(err);
           return;
         }
         console.log(stdout);
+      });
+      spawn.on('close', (code) => {
+         this.Logger.ok('Done!');
       });
     }
   },
