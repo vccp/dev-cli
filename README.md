@@ -1,2 +1,2 @@
-# dev-cli
-A global npm module to pull in boilerplates and more
+# component-boilerplate
+This is a boilerplate for component.js

@@ -1,0 +1,32 @@
+{
+  "name": "dev-cli",
+  "version": "1.0.0",
+  "description": "A global npm module to pull in boilerplates and more",
+  "main": "./index.js",
+  "scripts": {},
+  "bin": {
+    "dev-cli": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fahimc/dev-cli.git"
+  },
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "ncp": "^2.0.0",
+    "request": "^2.83.0",
+    "rimraf": "^2.4.3",
+    "shelljs": "^0.5.3",
+    "simple-git": "^1.91.0"
+  },
+  "keywords": [
+    "npm",
+    "module"
+  ],
+  "author": "Fahim Chowdhury",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fahimc/dev-cli/issues"
+  },
+  "homepage": "https://github.com/fahimc/dev-cli/"
+}
