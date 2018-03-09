@@ -27,3 +27,5 @@ dev-cli init componentjs
 dev-cli init babel
 ```
 
+
+[Azure Preview Link](https://dev-cli-8cf08684-14ec-4306-9b71-67a4b37edca1.azurewebsites.net/)
