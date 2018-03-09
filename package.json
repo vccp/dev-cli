@@ -1,15 +1,16 @@
 {
-  "name": "dev-cli",
+  "name": "vccp-cli",
   "version": "1.0.0",
   "description": "A global npm module to pull in boilerplates and more",
   "main": "./index.js",
   "scripts": {},
   "bin": {
-    "dev-cli": "./index.js"
+    "vccp-cli": "./index.js",
+    "vccp": "./index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fahimc/dev-cli.git"
+    "url": "https://github.com/vccp/vccp-cli.git"
   },
   "dependencies": {
     "grunt": "^0.4.5",
@@ -26,7 +27,7 @@
   "author": "Fahim Chowdhury",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fahimc/dev-cli/issues"
+    "url": "https://github.com/vccp/vccp-cli/issues"
   },
-  "homepage": "https://github.com/fahimc/dev-cli/"
+  "homepage": "https://github.com/vccp/vccp-cli/"
 }

@@ -8,9 +8,9 @@ var ncp = require('ncp').ncp;
 const { exec } = require('child_process');
 
 var Command = {
-  CONFIG: "https://gist.githubusercontent.com/fahimc/8ddd9c2741d436758be61423713510d8/raw",
-  GIST_LINK: "https://gist.github.com/fahimc/8ddd9c2741d436758be61423713510d8",
-  GITHUB_LINK: "https://github.com/fahimc/dev-cli",
+  CONFIG: "https://raw.githubusercontent.com/vccp/vccp-cli-config/master/vccp-cli-config.json",
+  GIST_LINK: "https://github.com/vccp/vccp-cli-config/blob/master/vccp-cli-config.json",
+  GITHUB_LINK: "https://github.com/vccp/vccp-cli",
   Logger: require('../logger.js'),
   argsLength: 3,
   boilerplateName: null,
@@ -48,7 +48,7 @@ var Command = {
       simpleGit.clone(boilerplate.repoLink, 'temp', this.onGitCloneComplete.bind(this));
 
     } else {
-      this.Logger.warn('cannot find this boilerplate. Please check the following file to see the available boilerplates: \nhttps://gist.github.com/fahimc/8ddd9c2741d436758be61423713510d8');
+      this.Logger.warn('cannot find this boilerplate. Please check the following file to see the available boilerplates: \n' + this.GIST_LINK);
     }
 
   },
